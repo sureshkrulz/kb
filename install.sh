@@ -115,13 +115,13 @@ EOF
 ###################################################
 ## Download the Google Cloud public signing key: ##
 ###################################################
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+curl -fsSL "https://packages.cloud.google.com/apt/doc/apt-key.gpg" | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg
 
 ########################################
 ## Add the Kubernetes apt repository: ##
 ########################################
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-
+echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
+sudo apt update -y
 ############################################################################################
 ## Update apt package index, install kubelet, kubeadm and kubectl, and pin their version: ##
 ############################################################################################
